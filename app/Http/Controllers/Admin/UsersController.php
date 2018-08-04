@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User as UserMod;
+use App\Model\Shop as ShopMod;
+use App\Model\products as product;
+use Illuminate\Database\Eloquent\Model;
 class UsersController extends Controller
 {
     /**
@@ -19,7 +22,8 @@ class UsersController extends Controller
         // Using alias name
         //$mods = UserMod::all();
 
-        foreach ($mods as $item) {
+        foreach ($mods as $item) 
+        {
             echo $item->name."<br />";
         }
     }
@@ -42,9 +46,17 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+     {
+        // Validate the request...
+ 
+        $mod = new UserMod;
+        $mod->name = $request->name;
+        $mod->email = $request->email;
+        $mod->password = bcrypt($request->password);
+        $mod->save();
     }
+
+
 
     /**
      * Display the specified resource.
@@ -54,10 +66,29 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        //$shop = ShopMod::find($id);
+       // echo $shop->name;
+
+       // echo "<br />";
+       // echo $shop->user->name;
+
+        $products = \App\Model\Shop::find($id)->products;
+        foreach ($products as $product) {
+            echo $products->name;
+            echo "<br />";
+    }
+            echo "OR <br /><br />";
+
+            $shop = ShopMod::find($id);
+            echo "<br />";            
+        foreach ($shop->products as $product) {
+            echo $product->name;
+            echo "<br />";
+        }
     }
 
     /**
+     
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -77,7 +108,13 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $mod = UserMod::find($id);
+        $mod->name = $request->name;
+        $mod->email = $request->email;
+        $mod->password = bcrypt($request->password);
+    $mod->save();
+    echo "update success";
+
     }
 
     /**
@@ -88,6 +125,8 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $mod = UserMod::find(1);
+        $mod->delete();
+
     }
 }
