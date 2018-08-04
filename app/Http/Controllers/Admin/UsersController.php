@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User as UserMod;
 use App\Model\Shop as ShopMod;
 use App\Model\products as product;
+use App\Model\product as ProductMod;
 use Illuminate\Database\Eloquent\Model;
 class UsersController extends Controller
 {
@@ -17,15 +18,66 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $mods = UserMod::all();
+
+    return view('template');
+       
+
+
+     //   $data = [
+      //  'name' => 'My Name',
+     //   'surname' => 'My SurName',
+     //   'email' => 'myemail@gmail.com'
+    //   ];
+
+     //   $user = UserMod::find(1);
+     //   $mods = UserMod::all();
+
+     //   return view('temp, prefix)', compact('data', 'user', 'mods'));
+
+
+
+
+    //$mods = UserMod::all();
+    //return view('test', compact('mods'));
+
+
+
+
+                // $data = [
+              //      'name' => 'My Name',
+               //     'surname' => 'My SurName',
+                //    'email' => 'myemail@gmail.com'
+              //  ];
+
+                 // $item = [
+              //      'item1' => 'My Value1',
+                //      'item2' => 'My Value2'
+               //  ];
+
+               //  $results = [
+              //      'data' => $data,
+              //      'item' => $item
+              //  ];
+
+             //   return view('test', $results);
+
+
+
+     
+
+       //return view('test')->with('name', 'My Name Is Kunanon')
+                         // ->with('email', 'test@email.com');
+
+
+        //$mods = UserMod::all();
         
         // Using alias name
         //$mods = UserMod::all();
 
-        foreach ($mods as $item) 
-        {
-            echo $item->name."<br />";
-        }
+        //foreach ($mods as $item) 
+        //{
+       //     echo $item->name."<br />";
+       // }
     }
 
 
@@ -64,27 +116,34 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
-        //$shop = ShopMod::find($id);
-       // echo $shop->name;
+            //$shop = ShopMod::find($id);
+            // echo $shop->name;
 
-       // echo "<br />";
-       // echo $shop->user->name;
+            // echo "<br />";
+           // echo $shop->user->name;
 
-        $products = ShopMod::find($id)->products;
-        foreach ($products as $product) {
-            echo $product->name;
-            echo "<br />";
-    }
-            echo "OR <br /><br />";
+            // $products = ShopMod::find($id)->products;
+           // foreach ($products as $product) {
+           //     echo $product->name;
+           //     echo "<br />";
+         //}
+           //     echo "OR <br /><br />";
 
-            $shop = ShopMod::find($id);
-            echo "<br />";            
-        foreach ($shop->products as $product) {
-            echo $product->name;
-            echo "<br />";
-        }
+            //    $shop = ShopMod::find($id);
+          //     echo "<br />";            
+          // foreach ($shop->products as $product) {
+           //    echo $product->name;
+           //    echo "<br />";
+           // }
+        
+                      // $product = ProductMod::find($id);
+                     // echo "Product Name Is: " .$product->name;
+                     //  echo "<br /><br />";
+                      //  echo "Shop Owner Is: " .$product->shop->name;
+
     }
 
     /**
@@ -125,8 +184,8 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $mod = UserMod::find(1);
-        $mod->delete();
+      //  $mod = UserMod::find(1);
+      //  $mod->delete();
 
     }
 }
