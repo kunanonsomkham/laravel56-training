@@ -72,9 +72,9 @@ class UsersController extends Controller
        // echo "<br />";
        // echo $shop->user->name;
 
-        $products = \App\Model\Shop::find($id)->products;
+        $products = ShopMod::find($id)->products;
         foreach ($products as $product) {
-            echo $products->name;
+            echo $product->name;
             echo "<br />";
     }
             echo "OR <br /><br />";
