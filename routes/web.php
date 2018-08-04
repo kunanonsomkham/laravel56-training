@@ -14,6 +14,6 @@
 Route::get('foo', function () {
     return view('welcome');
 });
-
+Route::get('demoone', 'DemoController@index');
 Route::resource('photos', 'PhotoController');
 Route::resource('admin/users', 'Admin\UsersController');

@@ -4,15 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class DemoController extends Controller
-{
-    //
-}
+
 class DemoController extends Controller
 {    
     public function index()
     {
-        return "Method GET: Index2";
+        return view('template');
     }
 
     public function demotwo()
