@@ -19,7 +19,12 @@ class UsersController extends Controller
     public function index()
     {
 
-    return view('template');
+    $mods = UserMod::paginate(20);
+    return view('admin.user.lists', compact('mods') );
+
+
+    
+    //return view('admin.user.lists');
        
 
 
