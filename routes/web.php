@@ -12,8 +12,26 @@
 */
 
 Route::get('foo', function () {
+   
     return view('welcome');
+    Route::resource('users', 'Admin\UsersController');
 });
-Route::get('demoone', 'DemoController@index');
-Route::resource('photos', 'PhotoController');
-Route::resource('admin/users', 'Admin\UsersController');
+
+
+
+
+	Route::resource('photos', 'PhotoController');
+
+
+	Route::prefix('admin')->group(function () {
+    Route::resource('user', 'Admin\UsersController');
+    Route::get('demoone', 'DemoController@index');
+   
+    
+
+
+});
+Route::get('login', 'LoginController@index')->name('login');
+
+    Route::get('logout', 'LoginController@logout');
+	Route::post('login', 'LoginController@authenticate');

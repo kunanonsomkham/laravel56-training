@@ -9,7 +9,7 @@ class DemoController extends Controller
 {    
     public function index()
     {
-        return view('template');
+        return "5565";
     }
 
     public function demotwo()

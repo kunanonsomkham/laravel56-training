@@ -154,7 +154,7 @@ class UsersController extends Controller
         $mod->city     = $request->city;
         $mod->save();
 
-                    return redirect('admin/users')
+                    return redirect('admin/user')
                     ->with('success', 'User ['.$request->name.'] created successfully.');
 
         echo "Save New data to table";
@@ -217,7 +217,10 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = UserMod::find($id);
+        return view('admin.user.edit', compact('item') );
+
+
     }
 
     /**
@@ -229,12 +232,41 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $mod = UserMod::find($id);
-        $mod->name = $request->name;
-        $mod->email = $request->email;
-        $mod->password = bcrypt($request->password);
-    $mod->save();
-    echo "update success";
+       
+            request()->validate([
+            'name' => 'required|min:2|max:50',
+            'surname' => 'required|min:2|max:50',
+            'mobile' => 'required|numeric',
+            'password' => 'required|min:6',
+            'age' => 'required|numeric',
+            'confirm_password' => 'required|min:6|max:20|same:password',
+              ], [
+            'name.required' => 'Name is required',
+            'name.min' => 'Name must be at least 2 characters.',
+            'name.max' => 'Name should not be greater than 50 characters.',
+             ]);
+
+              $request->validated();
+              $mod = UserMod::find($id);
+             $mod->name     = $request->name;
+                $mod->surname  = $request->surname;
+             //$mod->email    = $request->email;
+                $mod->mobile   = $request->mobile;
+             $mod->surname  = $request->surname;
+             $mod->age      = $request->age;
+             $mod->address  = $request->address;
+             $mod->city     = $request->city;
+             $mod->save();
+                return redirect('admin/user')
+                ->with('success', 'User ['.$request->name.'] updated successfully.');
+
+
+       // $mod = UserMod::find($id);
+       // $mod->name = $request->name;
+       // $mod->email = $request->email;
+       // $mod->password = bcrypt($request->password);
+    //$mod->save();
+    //echo "update success";
 
     }
 
@@ -246,6 +278,11 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
+
+            $mod = UserMod::find(1);
+            $mod->delete();
+
+
       //  $mod = UserMod::find(1);
       //  $mod->delete();
 
