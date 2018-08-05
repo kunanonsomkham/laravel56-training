@@ -18,7 +18,7 @@ Route::get('foo', function () {
 });
 
 
-
+	Route::get('/testexcle', 'DemoController@testexcel');
 
 	Route::resource('photos', 'PhotoController');
 
@@ -35,3 +35,5 @@ Route::get('login', 'LoginController@index')->name('login');
 
     Route::get('logout', 'LoginController@logout');
 	Route::post('login', 'LoginController@authenticate');
+
+	Route::get('/testlinenoti', 'DemoController@testlinenoti');
