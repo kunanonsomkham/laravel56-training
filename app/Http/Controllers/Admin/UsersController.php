@@ -19,7 +19,7 @@ class UsersController extends Controller
     public function index()
     {
 
-    $mods = UserMod::paginate(20);
+    $mods = UserMod::orderBy('id','desc')->paginate(10);
     return view('admin.user.lists', compact('mods') );
 
 
@@ -93,7 +93,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+         return view('admin.user.create');
     }
 
     /**
@@ -104,13 +104,70 @@ class UsersController extends Controller
      */
     public function store(Request $request)
      {
-        // Validate the request...
- 
+    
+       request()->validate([
+            'name' => 'required|min:2|max:50',
+            'surname' => 'required|min:2|max:50',
+            'mobile' => 'required|numeric',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+            'age' => 'required|numeric',
+            'confirm_password' => 'required|min:6|max:20|same:password',
+        ], [
+            'name.required' => 'Name is required',
+            'name.min' => 'Name must be at least 2 characters.',
+            'name.max' => 'Name should not be greater than 50 characters.',
+
+            'surname.required' => 'surname is required',
+            'surname.min' => 'surname must be at least 2 characters.',
+            'surname.max' => 'surname should not be greater than 50 characters.',
+
+            'mobile.required' => 'surname is required',
+            'mobile.numeric' => 'surname is numeric.',
+
+            'email.required' => 'email is required',
+            'email.email' => 'email is email.',
+            'email.unique' => 'email is unique.',
+
+            'password.required' => 'password is required',
+            'password.min' => 'password must be at least 2 characters.',
+
+            'age.required' => 'age is required',
+            'age.numeric' => 'age is numeric.',
+
+            'confirm_password.required' => 'confirm password is required',
+            'confirm_password.min' => 'confirm password must be at least 6 characters.',
+            'confirm_password.max' => 'confirm password must be at least 20 characters.',
+            'confirm_password.same' => 'confirm password Must be the same.',
+            
+        ]);
+
+
         $mod = new UserMod;
-        $mod->name = $request->name;
-        $mod->email = $request->email;
+        $mod->email    = $request->email;
         $mod->password = bcrypt($request->password);
+        $mod->name     = $request->name;
+        $mod->surname  = $request->surname;
+        $mod->mobile   = $request->mobile;
+        $mod->age      = $request->age;
+        $mod->address  = $request->address;
+        $mod->city     = $request->city;
         $mod->save();
+
+                    return redirect('admin/users')
+                    ->with('success', 'User ['.$request->name.'] created successfully.');
+
+        echo "Save New data to table";
+
+
+             // dd($request);    
+             // Validate the request...
+ 
+              // $mod = new UserMod;
+             // $mod->name = $request->name;
+             // $mod->email = $request->email;
+             // $mod->password = bcrypt($request->password);
+             //  $mod->save();
     }
 
 
