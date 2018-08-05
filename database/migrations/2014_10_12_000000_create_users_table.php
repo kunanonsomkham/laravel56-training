@@ -12,8 +12,11 @@ class CreateUsersTable extends Migration
      * @return void
      */
     public function up()
+
       {
+
         Schema::create('users', function (Blueprint $table) {
+            $table->string('api_token', 60)->unique()->nullable();
             $table->increments('id');
             $table->string('name');
             $table->string('surname')->nullable();
